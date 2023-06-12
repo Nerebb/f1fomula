@@ -18,6 +18,7 @@ export default function SearchInput({ }: Props) {
 
     function selectSearch(searchBy: string) {
         setSearchBy(searchBy)
+        setDropDown(false)
     }
 
     function handleSubmit() {
