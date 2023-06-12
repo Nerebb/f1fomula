@@ -12,7 +12,7 @@ This is a [F1 Formula Drivers]() websites where we updates the latest status of 
 ### Build with
 
 <img alt='NextJs' width='25px' style="filter: brightness(0) invert(1); padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-line.svg" />
-<img alt="Prisma" width='22px' style="filter: brightness(0) invert(1); padding-right:10px;" src='./readme/prisma_icon.png'>
+<img alt="Prisma" width='22px' style="filter: brightness(0) invert(1); padding-right:10px;" src='./README/prisma_icon.png'>
 <img alt="ChartJs" width='25px' style="padding-right:10px;" src='https://scicoding.com/content/images/2021/09/chartjs-logo-1.svg'>
 
 <br/>
@@ -28,15 +28,15 @@ This is a [F1 Formula Drivers]() websites where we updates the latest status of 
 
 - [Home page]()
   - User can view a charts by Driver's points.
-    ![Charts](/readme/chartByPoints.png)
+    ![Charts](/README/chartByPoints.png)
   - User can click in one of a chart's bar to navigate to selected Driver by #hash, click Readmore to navigate to Detail page of that driver.
-    ![DriverCard](/readme/allDrivers.png)
+    ![DriverCard](/README/allDrivers.png)
 - [Search page](/)
   - User can search through drivers by search bar, with provided keys
-    ![SearchDrivers](/readme/searchPage.png)
+    ![SearchDrivers](/README/searchPage.png)
 - [Detail page](/)
   - View fully detail of a Driver by id.
-    ![DetailDriver](/readme/detailPage.png)
+    ![DetailDriver](/README/detailPage.png)
 
 ## Getting started
 
@@ -77,7 +77,7 @@ There's only 2 [env variables](/next-env.d.ts):
   - This is the most time-consuming part due to I don't have [f1Formula] source code
   - The puppeter will launch a automatic browser (chromeium)
   - Then Using querySelector to crawl text from html.
-    ![querySelector](/readme/findQueries.png)
+    ![querySelector](/README/findQueries.png)
 
     Repeat finding and testing the queries until the crawled data is refined.And here's what I done to crawl the data:
 
@@ -92,7 +92,7 @@ There's only 2 [env variables](/next-env.d.ts):
         await homePage.goto('https://www.formula1.com/en/drivers.html', { waitUntil: 'networkidle2' })
     ```
 
-    ![ApiLaunchBrowser](/readme/lauchChromium.png)
+    ![ApiLaunchBrowser](/README/lauchChromium.png)
 
     - Then I will check if there any modals pop-ups, if true then click to proceeds.
 
@@ -100,7 +100,7 @@ There's only 2 [env variables](/next-env.d.ts):
            await homePage.$('button.trustarc-agree-btn').then(ele => ele?.click())
       ```
 
-      ![AcceptsModal](/readme/acceptCookies.png)
+      ![AcceptsModal](/README/acceptCookies.png)
 
     - After got all the drivers url, Chromium will automaticly visiting all the urls.
 
@@ -109,10 +109,10 @@ There's only 2 [env variables](/next-env.d.ts):
             if (!f1Drivers || f1Drivers.length === 0) return res.status(400).json({ message: "No drivers found" })
     ```
 
-    ![DetailPage](/readme/detailPageChromium.png)
+    ![DetailPage](/README/detailPageChromium.png)
 
     - When things done, store crawled database.
-      ![Database](/readme/dataBase.png)
+      ![Database](/README/dataBase.png)
     - You can easily watch it's automatic running on everypage just simply change the headless to 'new' on the [API](/src/pages/api/crawlData/f1formula.ts),
       ```Javascript
       const browser = await puppeteer.launch({
