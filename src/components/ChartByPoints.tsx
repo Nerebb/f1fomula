@@ -26,54 +26,57 @@ ChartJS.register(
 );
 
 export default function ChartByPoints({ drivers }: { drivers: driver[] }) {
-    const { theme } = useTheme()
+    const { theme, systemTheme } = useTheme()
     const browserWidth = useBrowserWidth()
     const router = useRouter()
     const chartRef = useRef<ChartJS<'bar'>>()
-    const options: ChartOptions<'bar'> = useMemo(() => ({
-        indexAxis: 'y' as const,
-        elements: {
-            bar: {
-                borderWidth: 1,
+    const options: ChartOptions<'bar'> = useMemo(() => {
+        const curTheme = theme === 'system' ? systemTheme : theme
+        return {
+            indexAxis: 'y' as const,
+            elements: {
+                bar: {
+                    borderWidth: 1,
+                },
             },
-        },
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'bottom' as const,
-                labels: {
-                    font: {
-                        size: browserWidth < 376 ? 12 : 16
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom' as const,
+                    labels: {
+                        font: {
+                            size: browserWidth < 376 ? 12 : 16
+                        }
+                    }
+                },
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: curTheme === 'dark' ? '#374151' : '#D1D5DB'
+                    },
+                    ticks: {
+                        color: curTheme === 'dark' ? 'white' : 'dark',
+                        font: {
+                            size: browserWidth < 376 ? 12 : 16
+                        }
+                    },
+                },
+                y: {
+                    grid: {
+                        color: curTheme === 'dark' ? '#374151' : '#D1D5DB'
+                    },
+                    ticks: {
+                        color: curTheme === 'dark' ? 'white' : 'dark',
+                        font: {
+                            size: browserWidth < 376 ? 6 : 16
+                        }
                     }
                 }
             },
-        },
-        scales: {
-            x: {
-                grid: {
-                    color: theme === 'dark' ? '#374151' : '#D1D5DB'
-                },
-                ticks: {
-                    color: theme === 'dark' ? 'white' : 'dark',
-                    font: {
-                        size: browserWidth < 376 ? 12 : 16
-                    }
-                },
-            },
-            y: {
-                grid: {
-                    color: theme === 'dark' ? '#374151' : '#D1D5DB'
-                },
-                ticks: {
-                    color: theme === 'dark' ? 'white' : 'dark',
-                    font: {
-                        size: browserWidth < 376 ? 6 : 16
-                    }
-                }
-            }
-        },
-        color: theme === 'dark' ? 'white' : 'dark',
-    }), [theme, browserWidth]);
+            color: curTheme === 'dark' ? 'white' : 'dark',
+        }
+    }, [theme, browserWidth]);
 
     const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
         const { current: bar } = chartRef;
