@@ -76,7 +76,7 @@ export default function ChartByPoints({ drivers }: { drivers: driver[] }) {
             },
             color: curTheme === 'dark' ? 'white' : 'dark',
         }
-    }, [theme, browserWidth]);
+    }, [theme, browserWidth, systemTheme]);
 
     const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
         const { current: bar } = chartRef;
