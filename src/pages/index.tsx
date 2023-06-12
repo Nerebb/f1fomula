@@ -31,7 +31,11 @@ export default function Home({ ...data }: any) {
 }
 
 export async function getServerSideProps(context: any) {
-  const res = await getDrivers({})
-  const data = JSON.stringify(res)
-  return { props: { data } }
+  try {
+    const res = await getDrivers({})
+    const data = JSON.stringify(res)
+    return { props: { data } }
+  } catch (error) {
+    console.log("HomePage", error)
+  }
 }
