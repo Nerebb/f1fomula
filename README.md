@@ -12,7 +12,7 @@ This is a [F1 Formula Drivers]() websites where we updates the latest status of 
 ### Build with
 
 <img alt='NextJs' width='25px' style="filter: brightness(0) invert(1); padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-line.svg" />
-<img alt="Prisma" width='22px' style="filter: brightness(0) invert(1); padding-right:10px;" src='./prisma_icon.png'>
+<img alt="Prisma" width='22px' style="filter: brightness(0) invert(1); padding-right:10px;" src='./readme/prisma_icon.png'>
 <img alt="ChartJs" width='25px' style="padding-right:10px;" src='https://scicoding.com/content/images/2021/09/chartjs-logo-1.svg'>
 
 <br/>
