@@ -18,10 +18,10 @@ export default function DriverDetail(data: any) {
             {!driver ? <LostData /> : (
                 <article className='space-y-5 py-5'>
                     {/* Image */}
-                    <div className='flex space-x-5'>
+                    <div className='flex flex-col sm:flex-row sm:space-x-5'>
                         <Image className="rounded-t-lg" alt={driver.name} src={driver.image || '/lost-avatar.png'} width={400} height={500} />
                         {/* GeneralInfo */}
-                        <div className='grow flex flex-col'>
+                        <div className='grow flex flex-col mt-3 sm:mt-0'>
                             <h1 className='capitalize font-extrabold text-3xl dark:text-white'>{driver.name}</h1>
                             <table className='grow'>
                                 <tbody>
