@@ -1,11 +1,10 @@
 import ChartByPoints from '@/components/ChartByPoints'
 import DriverGrid from '@/components/DriverGrid'
 import MainLayout from '@/layout/MainLayout'
+import Section from '@/layout/Section'
 import { Inter } from '@next/font/google'
 import { driver } from '@prisma/client'
 import { getDrivers } from './api/driver'
-import Section from '@/layout/Section'
-import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 

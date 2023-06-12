@@ -29,7 +29,7 @@ export default function SearchInput({ }: Props) {
         <div className='w-[inherit]'>
             <div className="relative flex">
                 <button
-                    className="capitalize flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+                    className="capitalize flex-shrink-0 z-10 inline-flex items-center sm:py-2.5 px-2 sm:px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
                     type="button"
                     onClick={handleDropDown}
                 >

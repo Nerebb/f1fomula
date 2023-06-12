@@ -14,6 +14,7 @@ import { MouseEvent, useMemo, useRef } from 'react';
 import type { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/router';
+import useBrowserWidth from '@/hooks/useBrowserWidth';
 
 ChartJS.register(
     CategoryScale,
@@ -26,6 +27,7 @@ ChartJS.register(
 
 export default function ChartByPoints({ drivers }: { drivers: driver[] }) {
     const { theme } = useTheme()
+    const browserWidth = useBrowserWidth()
     const router = useRouter()
     const chartRef = useRef<ChartJS<'bar'>>()
     const options: ChartOptions<'bar'> = useMemo(() => ({
@@ -39,6 +41,11 @@ export default function ChartByPoints({ drivers }: { drivers: driver[] }) {
         plugins: {
             legend: {
                 position: 'bottom' as const,
+                labels: {
+                    font: {
+                        size: browserWidth < 376 ? 12 : 16
+                    }
+                }
             },
         },
         scales: {
@@ -47,30 +54,37 @@ export default function ChartByPoints({ drivers }: { drivers: driver[] }) {
                     color: theme === 'dark' ? '#374151' : '#D1D5DB'
                 },
                 ticks: {
-                    color: theme === 'dark' ? 'white' : 'dark'
-                }
+                    color: theme === 'dark' ? 'white' : 'dark',
+                    font: {
+                        size: browserWidth < 376 ? 12 : 16
+                    }
+                },
             },
             y: {
                 grid: {
                     color: theme === 'dark' ? '#374151' : '#D1D5DB'
                 },
                 ticks: {
-                    color: theme === 'dark' ? 'white' : 'dark'
+                    color: theme === 'dark' ? 'white' : 'dark',
+                    font: {
+                        size: browserWidth < 376 ? 6 : 16
+                    }
                 }
             }
         },
         color: theme === 'dark' ? 'white' : 'dark',
-    }), [theme]);
+    }), [theme, browserWidth]);
 
     const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
         const { current: bar } = chartRef;
         if (!bar) return
 
-        const { index } = getElementAtEvent(bar, event)[0]
-        const { name } = drivers[index]
-
-        if (name) {
+        const data = getElementAtEvent(bar, event)
+        if (data && data.length) {
+            const index = data[0].index
+            const { name } = drivers[index]
             router.push(`/#${name}`)
+
         }
     }
 
