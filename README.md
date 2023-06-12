@@ -1,4 +1,4 @@
-This is a [F1 Formula Drivers]() websites where we updates the latest status of drivers.
+Welcome to the F1 Formula Drivers website, where we provide the latest updates on the drivers' status.
 
 ## TABLE OF CONTENT
 
@@ -18,24 +18,24 @@ This is a [F1 Formula Drivers]() websites where we updates the latest status of 
 <br/>
 <br/>
 
-- I Choose NextJs because the requirements is full stack and it's not very large, so using NextJs Serverless will be more efficent, and once upload to vercel, it's support [CronJob](https://vercel.com/blog/cron-jobs) which will automaticly request an api every settled times.
+- I chose Next.js as mine framework because it allows us to efficiently build a full-stack application. Since the project is not very large, Next.js Serverless is a suitable choice. Moreover, when deployed on Vercel, it supports [Cron Jobs](https://vercel.com/blog/cron-jobs) for automatic API requests at scheduled intervals.
 
-- For crawl data, [Pupeteer](https://pptr.dev/) is the most easy to start, the most downside is it must wait to page fully loaded to get the final data, which is very time consuming .But Pupetter can upscale by setting multiple automatic crawlers at a same time.
+- For web scraping, I use Puppeteer, which is easy to use and allows us to automate data extraction. The only downside is that it requires waiting for the page to fully load before retrieving the final data, which can be time-consuming. However, Puppeteer can scale by setting up multiple automated crawlers.
 
-- For Database, Prisma with MySql, since the data is not consistence, the helps of prisma ORM and SQL database would make mine scraped data more purely.
+- I use Prisma with MySQL as the database solution. Since the data is not consistent, Prisma's ORM and SQL database will help ensure the purity of the scraped data.
 
 ### Pages
 
-- [Home page]()
-  - User can view a charts by Driver's points.
+- [Home page](https://f1fomula.vercel.app/)
+  - Users can view charts representing the drivers' points.
     ![Charts](/README/chartByPoints.png)
-  - User can click in one of a chart's bar to navigate to selected Driver by #hash, click Readmore to navigate to Detail page of that driver.
+  - Clicking on a bar in the chart will navigate to the selected driver using the #hash in the URL. Clicking "Read more" will take users to the detailed page of that driver.
     ![DriverCard](/README/allDrivers.png)
-- [Search page](/)
-  - User can search through drivers by search bar, with provided keys
+- [Search page](https://f1fomula.vercel.app/search)
+  - Users can search for drivers using the provided search bar and specified keys.
     ![SearchDrivers](/README/searchPage.png)
-- [Detail page](/)
-  - View fully detail of a Driver by id.
+- [Detail page](https://f1fomula.vercel.app/0031176d-0554-45dc-a03b-6b69e91f7a40)
+  - Users can view the complete details of a driver based on their ID.
     ![DetailDriver](/README/detailPage.png)
 
 ## Getting started
@@ -122,3 +122,17 @@ There's only 2 [env variables](/next-env.d.ts):
 
 - [x] Build FE with [NextJs-TailwindCss](#pages) (4 hrs)
 - [x] Build Graph with [ChartJs](#pages) (1 hrs)
+- [x] CronJob on vercel, and you can turn it on/off mannually - [More info](#https://vercel.com/docs/cron-jobs#cron-expressions)
+
+```Json
+{
+  "crons": [
+    {
+      "path": "/api/crawlData/f1formula.ts",
+      "schedule": "0 3 * * *"
+    }
+  ]
+}
+```
+
+![cronJob](/README/cronJob.png)
