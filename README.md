@@ -151,7 +151,7 @@ The project requires the following environment variables, defined in [env.d.ts](
 
 - [x] Build FE with [NextJs-TailwindCss](#pages) (4 hrs)
 - [x] Build Graph with [ChartJs](#pages) (1 hrs)
-- [x] CronJob on vercel, and you can turn it on/off mannually - [More info](#https://vercel.com/docs/cron-jobs#cron-expressions)
+- [x] CronJob on vercel, and you can turn it on/off mannually - [More info](https://vercel.com/docs/cron-jobs#cron-expressions)
 
 ```Json
 {
