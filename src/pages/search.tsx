@@ -18,13 +18,17 @@ export default function search({ ...data }: any) {
 }
 
 export async function getServerSideProps(context: any) {
-    let res;
     try {
-        const validated = await driverSearchValidate.validate(context.query)
-        res = await getDrivers(validated)
+        let res;
+        try {
+            const validated = await driverSearchValidate.validate(context.query)
+            res = await getDrivers(validated)
+        } catch (error) {
+            res = await getDrivers({})
+        }
+        const data = JSON.stringify(res)
+        return { props: { data } }
     } catch (error) {
-        res = await getDrivers({})
+        console.log("SearchPage", error)
     }
-    const data = JSON.stringify(res)
-    return { props: { data } }
 }

@@ -93,6 +93,7 @@ export async function getServerSideProps(context: any) {
         const data = JSON.stringify(res)
         return { props: { data } }
     } catch (error) {
+        console.log("DETAILPAGE", error)
         return { props: [] }
     }
 }
