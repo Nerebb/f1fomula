@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model driver {
+  id String @id @unique @default(uuid())
+
+  //1stCrawl
+  name String @db.VarChar(50)
+  url  String @db.VarChar(100)
+
+  //2ndCrawl
+  position            Int?      @db.UnsignedTinyInt
+  points              Decimal?
+  team                String?   @db.VarChar(100)
+  image               String?
+  country             String?   @db.VarChar(255)
+  podiums             Int?      @db.UnsignedTinyInt
+  totalPoints         Decimal?
+  grandsPrixEntered   Int?      @db.UnsignedSmallInt
+  worldChampionships  Int?      @db.UnsignedTinyInt
+  highestRaceFinish   String?   @db.VarChar(10)
+  highestGridPosition Int?      @db.UnsignedTinyInt
+  dateOfBirth         DateTime? @db.Date
+  placeOfBirth        String?   @db.VarChar(100)
+  bio                 Json?     @db.Json
+
+  @@unique([name, url])
+}

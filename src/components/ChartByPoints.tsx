@@ -1,0 +1,97 @@
+import { driver } from '@prisma/client';
+import {
+    BarElement,
+    CategoryScale,
+    Chart as ChartJS,
+    Legend,
+    LinearScale,
+    Title,
+    Tooltip,
+} from 'chart.js';
+import { Bar, getElementAtEvent } from 'react-chartjs-2';
+import LostData from './LostData';
+import { MouseEvent, useMemo, useRef } from 'react';
+import type { ChartData, ChartOptions, ChartType } from 'chart.js';
+import { useTheme } from 'next-themes';
+import { useRouter } from 'next/router';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+export default function ChartByPoints({ drivers }: { drivers: driver[] }) {
+    const { theme } = useTheme()
+    const router = useRouter()
+    const chartRef = useRef<ChartJS<'bar'>>()
+    const options: ChartOptions<'bar'> = useMemo(() => ({
+        indexAxis: 'y' as const,
+        elements: {
+            bar: {
+                borderWidth: 1,
+            },
+        },
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom' as const,
+            },
+        },
+        scales: {
+            x: {
+                grid: {
+                    color: theme === 'dark' ? '#374151' : '#D1D5DB'
+                },
+                ticks: {
+                    color: theme === 'dark' ? 'white' : 'dark'
+                }
+            },
+            y: {
+                grid: {
+                    color: theme === 'dark' ? '#374151' : '#D1D5DB'
+                },
+                ticks: {
+                    color: theme === 'dark' ? 'white' : 'dark'
+                }
+            }
+        },
+        color: theme === 'dark' ? 'white' : 'dark',
+    }), [theme]);
+
+    const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
+        const { current: bar } = chartRef;
+        if (!bar) return
+
+        const { index } = getElementAtEvent(bar, event)[0]
+        const { name } = drivers[index]
+
+        if (name) {
+            router.push(`/#${name}`)
+        }
+    }
+
+    const data: ChartData<'bar'> = useMemo(() => {
+        const labels = drivers.map(i => i.name.toUpperCase())
+        return {
+            labels,
+            datasets: [{
+                label: 'Points',
+                data: labels.map((_, idx) => Number(drivers[idx].points) ?? 0),
+                backgroundColor: ['#37BEDD', '#5E8FAA', '#3782dd', '#B6BABD', '#C92D4B', '#294a9c', '#f58020', '#b6babd', '#2293d1', '#358c75'],
+            }]
+        }
+    }, [drivers])
+
+    if (!drivers || !drivers.length) return <LostData />
+
+    return <Bar
+        ref={chartRef}
+        options={options}
+        data={data}
+        onClick={onClick}
+    />;
+}
